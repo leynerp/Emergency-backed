@@ -4,6 +4,7 @@ package com.emergency.configuration.exception;
 import com.emergency.common.config.ErrorFormat;
 import com.emergency.common.exception.DuplicateDataException;
 import com.emergency.common.exception.RecourseNotFound;
+import com.emergency.configuration.person.exception.DuplicateAgentRegistryException;
 import com.emergency.configuration.person.exception.DuplicateMedicalRegistryException;
 import com.emergency.configuration.person.exception.DuplicateShipperRegistryException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -26,11 +27,11 @@ public class RestControllerAdviceManager {
     @Autowired
     private MessageSource messageSource;
     private final Locale locate=Locale.getDefault();
-   /* @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorFormat> handleException(RuntimeException ex) {
         return new ResponseEntity(messageSource.getMessage("api.error.notfound", null, Locale.getDefault()), HttpStatus.NOT_FOUND);
-    }*/
+    }
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -87,6 +88,12 @@ public class RestControllerAdviceManager {
 
         return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.shipper.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(DuplicateAgentRegistryException.class)
+    public ResponseEntity<ErrorFormat> handleExceptionDuplicateCode(DuplicateAgentRegistryException ex) {
+
+        return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.agent.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
 
     private ErrorFormat getError(String message, String error, int status) {
         return new ErrorFormat(status, error, getMessageBody(message));

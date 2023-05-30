@@ -40,7 +40,7 @@ public class ShiperService extends PersonBaseServiceImpl<DatShipperEntity,Long>{
     }
 
     private void validateShipperData(DatShipperEntity obj) {
-        if (obj.getIdShipper()!=null){
+        if (obj.getPersonEntity().getNoIdentification()!=null){
             Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
             personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
         }

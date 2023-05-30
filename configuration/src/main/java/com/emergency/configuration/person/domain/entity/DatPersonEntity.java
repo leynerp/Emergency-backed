@@ -32,4 +32,9 @@ public class DatPersonEntity {
     @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private DatShipperEntity shipper;
+
+
+    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private DatAgentEntity datAgent;
 }
