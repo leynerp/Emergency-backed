@@ -38,7 +38,7 @@ public class DoctorService extends PersonBaseServiceImpl<DatDoctorregistryEntity
     }
 
     private void validateDoctorData(DatDoctorregistryEntity obj) {
-        if (obj.getIdDoctor()!=null){
+        if (obj.getPersonEntity().getNoIdentification()!=null){
             Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
             personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
         }
