@@ -25,7 +25,9 @@ C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\nomenclator\service\NomHealthUnitServiceNom.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\nomenclator\domain\entity\NomEmergencycodeEntity.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\exception\DuplicateCodeException.java
+C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\person\exception\DuplicateMedicalRegistryException.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\ConfigurationApplication.java
+C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\person\domain\repository\DatPersonRepository.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\person\mapper\PersonMapper.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\nomenclator\service\FactoryService.java
 C:\Web\java\MS\emergency\configuration\src\main\java\com\emergency\configuration\utils\MessageConfiguration.java

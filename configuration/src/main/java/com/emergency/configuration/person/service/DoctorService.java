@@ -42,7 +42,7 @@ public class DoctorService extends PersonBaseServiceImpl<DatDoctorregistryEntity
             Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
             personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
         }
-        if (!obj.getMedicalRegistry().isEmpty()){
+        if (obj.getMedicalRegistry()!=null){
             Optional<DatDoctorregistryEntity> datDoctorregistryEntity=datDoctorRepository.findByMedicalRegistryIgnoreCase(obj.getMedicalRegistry());
             datDoctorregistryEntity.ifPresent((p)-> {throw new DuplicateMedicalRegistryException();});
         }

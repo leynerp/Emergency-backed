@@ -5,6 +5,7 @@ import com.emergency.common.config.ErrorFormat;
 import com.emergency.common.exception.DuplicateDataException;
 import com.emergency.common.exception.RecourseNotFound;
 import com.emergency.configuration.person.exception.DuplicateMedicalRegistryException;
+import com.emergency.configuration.person.exception.DuplicateShipperRegistryException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -81,7 +82,12 @@ public class RestControllerAdviceManager {
 
         return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.doctor.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
-    //
+    @ExceptionHandler(DuplicateShipperRegistryException.class)
+    public ResponseEntity<ErrorFormat> handleExceptionDuplicateCode(DuplicateShipperRegistryException ex) {
+
+        return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.shipper.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
     private ErrorFormat getError(String message, String error, int status) {
         return new ErrorFormat(status, error, getMessageBody(message));
     }

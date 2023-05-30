@@ -1,4 +1,5 @@
 com\emergency\configuration\nomenclator\service\NomHealthUnitServiceNom.class
+com\emergency\configuration\person\dto\ShipperDto.class
 com\emergency\configuration\nomenclator\service\BaseServiceImplNom.class
 com\emergency\configuration\ConfigurationApplication.class
 com\emergency\configuration\nomenclator\domain\entity\NomServicetypeEntity.class
@@ -9,8 +10,11 @@ com\emergency\configuration\person\domain\entity\DatAgentEntity.class
 com\emergency\configuration\nomenclator\config\NomenclatorType.class
 com\emergency\configuration\person\controllers\DoctorController.class
 com\emergency\configuration\person\domain\entity\DatUserEntity.class
+com\emergency\configuration\person\service\ShiperService.class
 com\emergency\configuration\person\mapper\PersonMapper.class
+com\emergency\configuration\person\controllers\ShiperController.class
 com\emergency\configuration\person\domain\entity\DatDoctorregistryEntity.class
+com\emergency\configuration\person\exception\DuplicateShipperRegistryException.class
 com\emergency\configuration\nomenclator\service\FactoryService.class
 com\emergency\configuration\person\domain\repository\DatDoctorRepository.class
 com\emergency\configuration\person\dto\DoctorDto.class
@@ -25,6 +29,7 @@ com\emergency\configuration\nomenclator\service\NomEmergencyCodeServiceNom.class
 com\emergency\configuration\utils\MessageConfiguration.class
 com\emergency\configuration\nomenclator\domain\repository\NomEmergencyCodeRepository.class
 com\emergency\configuration\nomenclator\service\FactoryService$1.class
+com\emergency\configuration\person\domain\repository\DatShipperRepository.class
 com\emergency\configuration\person\service\DoctorService.class
 com\emergency\configuration\nomenclator\domain\entity\NomMoviltypeEntity.class
 com\emergency\configuration\nomenclator\mapper\NomenclatorMapper.class

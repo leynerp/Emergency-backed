@@ -28,4 +28,8 @@ public class DatPersonEntity {
     @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private DatDoctorregistryEntity doctor;
+
+    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private DatShipperEntity shipper;
 }
