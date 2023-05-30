@@ -4,6 +4,7 @@ package com.emergency.configuration.exception;
 import com.emergency.common.config.ErrorFormat;
 import com.emergency.common.exception.DuplicateDataException;
 import com.emergency.common.exception.RecourseNotFound;
+import com.emergency.configuration.person.exception.DuplicateMedicalRegistryException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -69,11 +70,16 @@ public class RestControllerAdviceManager {
         return new ResponseEntity<>(getError("api.error.notfound",getMessageBody("api.error.notfound"), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(DuplicateCodeException.class)
     public ResponseEntity<ErrorFormat> handleExceptionDuplicateCode(DuplicateCodeException ex) {
 
         return new ResponseEntity<>(getError("api.error.integrityError",getMessageBody("api.error.duplicateCode"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateMedicalRegistryException.class)
+    public ResponseEntity<ErrorFormat> handleExceptionDuplicateCode(DuplicateMedicalRegistryException ex) {
+
+        return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.doctor.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
     //
     private ErrorFormat getError(String message, String error, int status) {
