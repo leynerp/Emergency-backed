@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.Locale;
 
 @RestController
@@ -30,19 +31,19 @@ public class DoctorController {
     @PostMapping()
     public ResponseEntity insertData(@RequestBody DoctorDto doctorDto) throws Exception {
         doctorService.insertData(personMapper.doctorDtoToDatDoctorEntity(doctorDto));
-        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.creation.success", null, Locale.getDefault())), HttpStatus.OK);
+        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.person.doctor.creation.success", null, Locale.getDefault())), HttpStatus.OK);
     }
-    /*@PatchMapping("/{id}")
-    public ResponseEntity updatetData(@PathVariable("id") Long id, @RequestBody NomenclatorPostDto nomenclatorPostDto) throws Exception {
-        NomEmergencycodeEntity nomEmergencycodeEntity= nomenclatorMapper.nomenclatorDtoToNomEmergencyEntity(nomenclatorPostDto);
-        nomEmergencycodeEntity.setId(id);
-        emergencyCodeService.updateData(nomEmergencycodeEntity,id);
-        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.update.success", null, Locale.getDefault())), HttpStatus.OK);
+
+    @PatchMapping("/{id}")
+    public ResponseEntity updateData(@PathVariable("id") Long id, @RequestBody DoctorDto doctorDto) throws Exception {
+        doctorService.updateData(personMapper.doctorDtoToDatDoctorEntity(doctorDto),id);
+        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.person.doctor.update.success", null, Locale.getDefault())), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteData(@PathVariable("id") Long id ) {
-        emergencyCodeService.deleteData(id);
-        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.delete.success", null, Locale.getDefault())), HttpStatus.OK);
-    }*/
+    public ResponseEntity deleteData(@PathVariable("id") Long id) throws Exception {
+        doctorService.deleteData(id);
+        return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.person.doctor.delete.success", null, Locale.getDefault())), HttpStatus.OK);
+    }
 
 }

@@ -11,7 +11,7 @@ public class DatPersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idperson", nullable = false, precision = 0)
-    private int idperson;
+    private Long idperson;
     @Basic
     @Column(name = "name", nullable = false, length = 255)
     private String name;

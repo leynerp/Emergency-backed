@@ -25,11 +25,30 @@ public class DoctorService extends PersonBaseServiceImpl<DatDoctorregistryEntity
 
     @Override
     public DatDoctorregistryEntity insertData(DatDoctorregistryEntity obj) {
-        Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
-        Optional<DatDoctorregistryEntity> datDoctorregistryEntity=datDoctorRepository.findByMedicalRegistryIgnoreCase(obj.getMedicalRegistry());
-        personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
-        datDoctorregistryEntity.ifPresent((p)-> {throw new DuplicateMedicalRegistryException();});
+        validateDoctorData(obj);
         return super.insertData(obj);
     }
 
+    @Override
+    public DatDoctorregistryEntity updateData(DatDoctorregistryEntity obj, Long id) {
+        validateDoctorData(obj);
+        obj.setIdDoctor(id);
+        obj.getPersonEntity().setIdperson(id);
+        return super.updateData(obj, id);
+    }
+
+    private void validateDoctorData(DatDoctorregistryEntity obj) {
+        if (obj.getIdDoctor()!=null){
+            Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
+            personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
+        }
+        if (!obj.getMedicalRegistry().isEmpty()){
+            Optional<DatDoctorregistryEntity> datDoctorregistryEntity=datDoctorRepository.findByMedicalRegistryIgnoreCase(obj.getMedicalRegistry());
+            datDoctorregistryEntity.ifPresent((p)-> {throw new DuplicateMedicalRegistryException();});
+        }
+
+
+
+
+    }
 }

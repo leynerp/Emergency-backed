@@ -10,14 +10,14 @@ public class DatDoctorregistryEntity  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "iddoctor", nullable = false, precision = 0)
-    private int idDoctor;
+    private Long idDoctor;
     @Basic
     @Column(name = "medical_registry", nullable = false, length = 255)
     private String medicalRegistry;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
-    @JoinColumn(name = "iddoctor")
+    @JoinColumn(name = "iddoctor", updatable = true)
     private DatPersonEntity personEntity;
 
 
