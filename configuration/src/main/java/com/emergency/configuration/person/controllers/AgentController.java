@@ -5,6 +5,7 @@ import com.emergency.common.config.InfoMessage;
 import com.emergency.configuration.person.dto.AgentDto;
 import com.emergency.configuration.person.mapper.PersonMapper;
 import com.emergency.configuration.person.service.AgentService;
+import com.emergency.common.config.ResponsePagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,10 @@ public class AgentController {
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.person.agent.creation.success", null, Locale.getDefault())), HttpStatus.OK);
     }
 
+    @GetMapping("/{start}/{limit}")
+    public ResponsePagination<AgentDto> getAll(@PathVariable("start") int start, @PathVariable("limit") int limit) {
+        return agentService.getAgents(start,limit);
+    }
     @PatchMapping("/{id}")
     public ResponseEntity updateData(@PathVariable("id") Long id, @RequestBody AgentDto agentDto) throws Exception {
         agentService.updateData(personMapper.agentDtoToDatAgentEntity(agentDto),id);

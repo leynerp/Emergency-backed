@@ -4,7 +4,7 @@ import com.emergency.common.domain.entity.NomBase;
 import com.emergency.common.domain.repository.NomBaseRepository;
 import com.emergency.common.exception.DuplicateDataException;
 import com.emergency.common.service.BaseService;
-import common.ResponsePagination;
+import com.emergency.common.config.ResponsePagination;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;

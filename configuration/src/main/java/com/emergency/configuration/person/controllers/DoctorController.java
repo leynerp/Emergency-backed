@@ -3,6 +3,9 @@ package com.emergency.configuration.person.controllers;
 
 import com.emergency.common.config.InfoMessage;
 
+import com.emergency.common.config.ResponsePagination;
+import com.emergency.configuration.person.domain.entity.DatDoctorregistryEntity;
+import com.emergency.configuration.person.dto.AgentDto;
 import com.emergency.configuration.person.dto.DoctorDto;
 import com.emergency.configuration.person.mapper.PersonMapper;
 import com.emergency.configuration.person.service.DoctorService;
@@ -28,6 +31,10 @@ public class DoctorController {
     @Autowired
     PersonMapper personMapper;
 
+    @GetMapping("/{start}/{limit}")
+    public ResponsePagination<DoctorDto> getAll(@PathVariable("start") int start, @PathVariable("limit") int limit) {
+        return doctorService.getDoctors(start,limit);
+    }
     @PostMapping()
     public ResponseEntity insertData(@RequestBody DoctorDto doctorDto) throws Exception {
         doctorService.insertData(personMapper.doctorDtoToDatDoctorEntity(doctorDto));

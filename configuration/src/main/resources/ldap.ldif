@@ -1,0 +1,28 @@
+dn: ou=Roles,dc=example,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: Roles
+
+dn: ou=Users,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Users
+
+dn: cn=user2,ou=Users,dc=example,dc=org
+objectClass: person
+objectClass: top
+cn: user1
+sn: user1
+userPassword:: bGRhcFBhc3N3b3Jk
+
+dn: cn=user2,ou=Users,dc=example,dc=org
+objectClass: person
+objectClass: top
+cn: user2
+sn: user2
+userPassword:: bGRhcFBhc3N3b3Jk
+
+dn: cn=ROLE_ACL_ADMIN,ou=Roles,dc=example,dc=org
+objectClass: groupOfUniqueNames
+cn: ROLE_ACL_ADMIN
+uniqueMember: cn=user1,ou=Users,dc=example,dc=org
+uniqueMember: cn=user2,ou=Users,dc=example,dc=org

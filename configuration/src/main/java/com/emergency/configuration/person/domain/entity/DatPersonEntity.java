@@ -1,11 +1,15 @@
 package com.emergency.configuration.person.domain.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "dat_person", schema = "mod_person", catalog = "db_emergency")
 public class DatPersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +38,7 @@ public class DatPersonEntity {
     private DatShipperEntity shipper;
 
 
-    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "personEntityAgent", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private DatAgentEntity datAgent;
 }

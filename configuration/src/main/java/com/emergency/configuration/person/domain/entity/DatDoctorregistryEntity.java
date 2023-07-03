@@ -1,12 +1,18 @@
 package com.emergency.configuration.person.domain.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "dat_doctorregistry", schema = "mod_person", catalog = "db_emergency")
 public class DatDoctorregistryEntity  {
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "iddoctor", nullable = false, precision = 0)
@@ -19,6 +25,7 @@ public class DatDoctorregistryEntity  {
     @MapsId
     @JoinColumn(name = "iddoctor")
     private DatPersonEntity personEntity;
+
 
 
 }

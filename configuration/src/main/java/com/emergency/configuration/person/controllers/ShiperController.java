@@ -2,6 +2,7 @@ package com.emergency.configuration.person.controllers;
 
 
 import com.emergency.common.config.InfoMessage;
+import com.emergency.common.config.ResponsePagination;
 import com.emergency.configuration.person.dto.DoctorDto;
 import com.emergency.configuration.person.dto.ShipperDto;
 import com.emergency.configuration.person.mapper.PersonMapper;
@@ -28,6 +29,10 @@ public class ShiperController {
     @Autowired
     PersonMapper personMapper;
 
+    @GetMapping("/{start}/{limit}")
+    public ResponsePagination<ShipperDto> getAll(@PathVariable("start") int start, @PathVariable("limit") int limit) {
+        return shipperService.getShipper(start,limit);
+    }
     @PostMapping()
     public ResponseEntity insertData(@RequestBody ShipperDto shipperDto) throws Exception {
         shipperService.insertData(personMapper.shipperDtoToDatShipperEntity(shipperDto));

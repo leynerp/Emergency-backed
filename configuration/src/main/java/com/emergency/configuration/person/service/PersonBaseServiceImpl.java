@@ -2,14 +2,16 @@ package com.emergency.configuration.person.service;
 
 import com.emergency.common.domain.repository.PersonBaseRepository;
 import com.emergency.common.service.BaseService;
-import common.ResponsePagination;
+import com.emergency.common.config.ResponsePagination;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public abstract class PersonBaseServiceImpl<C,  IDT> implements BaseService<C, IDT> {
 
     protected PersonBaseRepository<C,IDT> baseRepository;
