@@ -21,19 +21,27 @@ public class DatPersonEntity {
     private String name;
     @Basic
     @Column(name = "f_lastname", nullable = true, length = 255)
-    private String fLastname;
+    private String firstLastName;
     @Basic
     @Column(name = "sec_lastname", nullable = true, length = 255)
-    private String secLastname;
+    private String secLastName;
     @Basic
     @Column(name = "no_identification", nullable = true, length = 255)
     private String noIdentification;
 
-    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
+    @Basic
+    @Column(name = "id_documenttype", nullable = true, length = 255)
+    private Long idDocumentType;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="id_documenttype",insertable = false,updatable = false)
+    private NomDocumenttypeEntity documentType;
+
+    @OneToOne(mappedBy = "personEntityDoctor", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private DatDoctorregistryEntity doctor;
 
-    @OneToOne(mappedBy = "personEntity", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "personEntityShipper", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private DatShipperEntity shipper;
 

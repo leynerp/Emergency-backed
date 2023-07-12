@@ -44,13 +44,13 @@ public class DoctorService extends PersonBaseServiceImpl<DatDoctorregistryEntity
     public DatDoctorregistryEntity updateData(DatDoctorregistryEntity obj, Long id) {
         validateDoctorData(obj);
         obj.setIdDoctor(id);
-        obj.getPersonEntity().setIdperson(id);
+        obj.getPersonEntityDoctor().setIdperson(id);
         return super.updateData(obj, id);
     }
 
     private void validateDoctorData(DatDoctorregistryEntity obj) {
-        if (obj.getPersonEntity().getNoIdentification()!=null){
-            Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
+        if (obj.getPersonEntityDoctor().getNoIdentification()!=null){
+            Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntityDoctor().getNoIdentification());
             personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
         }
         if (obj.getMedicalRegistry()!=null){

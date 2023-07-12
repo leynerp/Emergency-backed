@@ -17,34 +17,38 @@ import java.util.List;
 public interface PersonMapper {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class );
-    @Mapping(source = "idPerson", target = "idDoctor")
-    @Mapping(source = "name", target = "personEntity.name")
-    @Mapping(source = "FLastname", target = "personEntity.fLastname")
-    @Mapping(source = "secLastname", target = "personEntity.secLastname")
-    @Mapping(source = "noIdentification", target = "personEntity.noIdentification")
+    @Mapping(source = "id_person", target = "idDoctor")
+    @Mapping(source = "name", target = "personEntityDoctor.name")
+    @Mapping(source = "f_last_name", target = "personEntityDoctor.firstLastName")
+    @Mapping(source = "s_last_name", target = "personEntityDoctor.secLastName")
+    @Mapping(source = "no_identification", target = "personEntityDoctor.noIdentification")
+    @Mapping(source = "document_type", target = "personEntityDoctor.documentType.name")
+    @Mapping(source = "id_document_type", target = "personEntityDoctor.idDocumentType")
     DatDoctorregistryEntity doctorDtoToDatDoctorEntity(DoctorDto doctorDto);
     @InheritInverseConfiguration
-    @Mapping(source = "personEntity.FLastname", target = "FLastname")
     DoctorDto doctorEntityToDoctorDto(DatDoctorregistryEntity doctorEntity);
-    @Mapping(source = "idPerson", target = "idShipper")
-    @Mapping(source = "name", target = "personEntity.name")
-    @Mapping(source = "FLastname", target = "personEntity.fLastname")
-    @Mapping(source = "secLastname", target = "personEntity.secLastname")
-    @Mapping(source = "noIdentification", target = "personEntity.noIdentification")
+    @Mapping(source = "id_person", target = "idShipper")
+    @Mapping(source = "name", target = "personEntityShipper.name")
+    @Mapping(source = "f_last_name", target = "personEntityShipper.firstLastName")
+    @Mapping(source = "s_last_name", target = "personEntityShipper.secLastName")
+    @Mapping(source = "no_identification", target = "personEntityShipper.noIdentification")
+    @Mapping(source = "document_type", target = "personEntityShipper.documentType.name")
+    @Mapping(source = "id_document_type", target = "personEntityShipper.idDocumentType")
     DatShipperEntity shipperDtoToDatShipperEntity(ShipperDto shipperDto);
     @InheritInverseConfiguration
-    @Mapping(source = "personEntity.FLastname", target = "FLastname")
     ShipperDto shipperEntityToShipperDto(DatShipperEntity shipperEntity);
 
-    @Mapping(source = "idPerson", target = "idAgent")
+    @Mapping(source = "id_person", target = "idAgent")
     @Mapping(source = "name", target = "personEntityAgent.name")
-    @Mapping(source = "FLastname", target = "personEntityAgent.fLastname")
-    @Mapping(source = "secLastname", target = "personEntityAgent.secLastname")
-    @Mapping(source = "noIdentification", target = "personEntityAgent.noIdentification")
+    @Mapping(source = "f_last_name", target = "personEntityAgent.firstLastName")
+    @Mapping(source = "s_last_name", target = "personEntityAgent.secLastName")
+    @Mapping(source = "no_identification", target = "personEntityAgent.noIdentification")
+    @Mapping(source = "agent_number", target = "agentNumber")
+    @Mapping(source = "document_type", target = "personEntityAgent.documentType.name")
+    @Mapping(source = "id_document_type", target = "personEntityAgent.idDocumentType")
     DatAgentEntity agentDtoToDatAgentEntity(AgentDto agentDto);
 
     @InheritInverseConfiguration
-    @Mapping(source = "personEntityAgent.FLastname", target = "FLastname")
     AgentDto agentEntityToAgentDto(DatAgentEntity agentEntity);
     List<AgentDto> agentEntityListToAgentDtoList(List<DatAgentEntity> agentEntityList);
     List<ShipperDto> shipperEntityListToShipperDtoList(List<DatShipperEntity> shipperEntity);

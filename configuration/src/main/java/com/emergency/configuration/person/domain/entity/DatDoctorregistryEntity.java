@@ -24,7 +24,7 @@ public class DatDoctorregistryEntity  {
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "iddoctor")
-    private DatPersonEntity personEntity;
+    private DatPersonEntity personEntityDoctor;
 
 
 

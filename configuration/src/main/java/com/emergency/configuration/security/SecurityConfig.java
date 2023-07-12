@@ -3,6 +3,7 @@ package com.emergency.configuration.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -43,14 +44,16 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/**/auth/**")
                 .permitAll()
+                .antMatchers(HttpMethod.OPTIONS)
+                .permitAll()
                 .anyRequest()
                 .fullyAuthenticated()
                 .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
+                .cors(cors -> cors.disable())
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         return http.build();
     }
 
@@ -72,17 +75,18 @@ public class SecurityConfig {
                 .managerPassword(this.managerPassword);
     }
 
-    @Bean
+   /* @Bean
     public WebMvcConfigurer corsConfig(){
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/v1/auth")
+                registry.addMapping("/**")
                         .allowedOrigins("*")
                         .allowedMethods("*");
+
                 WebMvcConfigurer.super.addCorsMappings(registry);
             }
         };
-    }
+    }*/
 
 }

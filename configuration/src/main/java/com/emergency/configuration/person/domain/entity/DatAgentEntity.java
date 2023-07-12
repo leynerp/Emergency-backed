@@ -18,8 +18,8 @@ public class DatAgentEntity {
     private Long idAgent;
 
     @Basic
-    @Column(name = "indentification_number", nullable = false, precision = 0)
-    private Long identificationNumber;
+    @Column(name = "agent_number", nullable = false, precision = 0)
+    private Long agentNumber;
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "idagent")

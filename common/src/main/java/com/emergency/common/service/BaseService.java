@@ -1,6 +1,6 @@
 package com.emergency.common.service;
 
-import common.ResponsePagination;
+import com.emergency.common.config.ResponsePagination;
 
 public interface BaseService <C, IDT>{
     ResponsePagination<C> findAll(Integer start, Integer limit);

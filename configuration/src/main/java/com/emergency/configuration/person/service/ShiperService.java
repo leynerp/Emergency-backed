@@ -43,13 +43,13 @@ public class ShiperService extends PersonBaseServiceImpl<DatShipperEntity,Long>{
     public DatShipperEntity updateData(DatShipperEntity obj, Long id) {
         validateShipperData(obj);
         obj.setIdShipper(id);
-        obj.getPersonEntity().setIdperson(id);
+        obj.getPersonEntityShipper().setIdperson(id);
         return super.updateData(obj, id);
     }
 
     private void validateShipperData(DatShipperEntity obj) {
-        if (obj.getPersonEntity().getNoIdentification()!=null){
-            Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntity().getNoIdentification());
+        if (obj.getPersonEntityShipper().getNoIdentification()!=null){
+            Optional<DatPersonEntity> personEntity=datPersonRepository.findByNoIdentificationIgnoreCase(obj.getPersonEntityShipper().getNoIdentification());
             personEntity.ifPresent((p)-> {throw new DuplicateCodeException();});
         }
         if (obj.getRegistry()!=null){

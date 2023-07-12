@@ -19,7 +19,7 @@ public class DatShipperEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "idshipper")
-    private DatPersonEntity personEntity;
+    private DatPersonEntity personEntityShipper;
 
 
 }

@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface DatAgentRepository extends PersonBaseRepository<DatAgentEntity,Long> {
-    Optional<DatAgentEntity> findByIdentificationNumber(Long registry);
+    Optional<DatAgentEntity> findByAgentNumber(Long registry);
 }

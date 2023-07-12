@@ -50,8 +50,8 @@ public class AgentService extends PersonBaseServiceImpl<DatAgentEntity, Long> {
                 throw new DuplicateCodeException();
             });
         }
-        if (obj.getIdentificationNumber() != null) {
-            Optional<DatAgentEntity> datAgent = datAgentRepository.findByIdentificationNumber(obj.getIdentificationNumber());
+        if (obj.getAgentNumber() != null) {
+            Optional<DatAgentEntity> datAgent = datAgentRepository.findByAgentNumber(obj.getAgentNumber());
             datAgent.ifPresent((p) -> {
                 throw new DuplicateMedicalRegistryException();
             });
