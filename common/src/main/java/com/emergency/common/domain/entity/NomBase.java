@@ -1,6 +1,7 @@
 package com.emergency.common.domain.entity;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 @MappedSuperclass

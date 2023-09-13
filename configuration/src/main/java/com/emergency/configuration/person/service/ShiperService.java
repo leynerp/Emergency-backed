@@ -18,6 +18,7 @@ import com.emergency.configuration.person.mapper.PersonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,11 @@ public class ShiperService extends PersonBaseServiceImpl<DatShipperEntity,Long>{
     PersonMapper personMapper;
     public ShiperService(PersonBaseRepository<DatShipperEntity, Long> baseRepository) {
         super(baseRepository);
+    }
+
+    @Override
+    public void findByName(String name, Long id) {
+
     }
 
     @Override

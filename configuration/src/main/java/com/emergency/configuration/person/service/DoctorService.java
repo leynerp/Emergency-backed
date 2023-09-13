@@ -21,17 +21,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
 public class DoctorService extends PersonBaseServiceImpl<DatDoctorregistryEntity,Long>{
-
+    @Autowired
     private DatPersonRepository datPersonRepository;
-
+    @Autowired
     private DatDoctorRepository datDoctorRepository;
     @Autowired
     PersonMapper personMapper;
     public DoctorService(PersonBaseRepository<DatDoctorregistryEntity, Long> baseRepository) {
         super(baseRepository);
+    }
+
+    @Override
+    public void findByName(String name, Long id) {
+
     }
 
     @Override

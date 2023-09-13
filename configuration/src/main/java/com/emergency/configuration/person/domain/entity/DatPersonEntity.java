@@ -1,5 +1,6 @@
 package com.emergency.configuration.person.domain.entity;
 
+import com.emergency.configuration.nomenclator.domain.entity.NomDocumentTypeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,13 +30,10 @@ public class DatPersonEntity {
     @Column(name = "no_identification", nullable = true, length = 255)
     private String noIdentification;
 
-    @Basic
-    @Column(name = "id_documenttype", nullable = true, length = 255)
-    private Long idDocumentType;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="id_documenttype",insertable = false,updatable = false)
-    private NomDocumenttypeEntity documentType;
+    @ManyToOne
+    @JoinColumn(name="id_documenttype")
+    private NomDocumentTypeEntity documentType;
 
     @OneToOne(mappedBy = "personEntityDoctor", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

@@ -33,12 +33,12 @@ public class DoctorRespositoryTest {
         //given
         DatPersonEntity datPersonEntity = DatPersonEntity.builder()
                 .name("Leyner")
-                .fLastname("Patterson")
-                .secLastname("Tamayo")
+                .firstLastName("Patterson")
+                .secLastName("Tamayo")
                 .noIdentification("99")
                 .build();
         DatDoctorregistryEntity datDoctorregistryEntity = DatDoctorregistryEntity.builder()
-                .personEntity(datPersonEntity)
+                .personEntityDoctor(datPersonEntity)
                 .medicalRegistry("7777")
                 .build();
         //when

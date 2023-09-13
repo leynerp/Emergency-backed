@@ -37,11 +37,6 @@ public abstract class PersonBaseServiceImpl<C,  IDT> implements BaseService<C, I
     }
 
     @Override
-    public void findByName(String name) {
-
-    }
-
-    @Override
     public C insertData(C obj) {
 
         return baseRepository.save(obj);

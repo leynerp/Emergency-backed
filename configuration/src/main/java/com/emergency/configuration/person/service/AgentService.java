@@ -30,6 +30,11 @@ public class AgentService extends PersonBaseServiceImpl<DatAgentEntity, Long> {
     }
 
     @Override
+    public void findByName(String name, Long id) {
+
+    }
+
+    @Override
     public DatAgentEntity insertData(DatAgentEntity obj) {
         validateShipperData(obj);
         return super.insertData(obj);

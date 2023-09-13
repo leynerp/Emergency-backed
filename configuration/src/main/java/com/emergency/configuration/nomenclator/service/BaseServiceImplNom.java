@@ -35,8 +35,8 @@ public abstract class BaseServiceImplNom<C extends NomBase,  IDT> implements Bas
     }
 
     @Override
-    public void findByName(String name) {
-        List<Optional<C>> optional= nomBaseRepository.findByNameIgnoreCase(name);
+    public void findByName(String name, IDT id) {
+        List<Optional<C>> optional=(id!=null) ? nomBaseRepository.findByNameIgnoreCaseAndIdIsNot(name,id) : nomBaseRepository.findByNameIgnoreCase(name);
         if (optional.size()>0) {
             throw new DuplicateDataException();
         }
@@ -49,14 +49,14 @@ public abstract class BaseServiceImplNom<C extends NomBase,  IDT> implements Bas
 
     @Override
     public C insertData(C obj) {
-        findByName(obj.getName());
+        findByName(obj.getName(), null);
        return nomBaseRepository.save(obj);
     }
 
     @Override
     public C updateData(C obj, IDT id) {
         nomBaseRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        findByName(obj.getName());
+        this.findByName(obj.getName(),id);
         return nomBaseRepository.save(obj);
     }
 

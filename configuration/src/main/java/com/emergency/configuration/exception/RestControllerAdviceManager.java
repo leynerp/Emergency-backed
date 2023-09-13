@@ -28,9 +28,9 @@ public class RestControllerAdviceManager {
     private MessageSource messageSource;
     private final Locale locate=Locale.getDefault();
     @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorFormat> handleException(RuntimeException ex) {
-        return new ResponseEntity(messageSource.getMessage("api.error.notfound", null, Locale.getDefault()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(getError("api.error.notfound",getMessageBody(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR.value()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(BindException.class)

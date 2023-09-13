@@ -1,8 +1,8 @@
 package com.emergency.configuration.nomenclator.controllers;
 
 import com.emergency.common.config.InfoMessage;
+import com.emergency.common.domain.entity.NomBase;
 import com.emergency.configuration.nomenclator.service.BaseServiceImplNom;
-import com.emergency.configuration.nomenclator.dto.NomenclatorPostDto;
 import com.emergency.configuration.nomenclator.service.FactoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +31,15 @@ public class NomenclatorController {
     }
 
     @PostMapping("/{ref}")
-    public ResponseEntity insertData(@PathVariable("ref") String ref, @RequestBody NomenclatorPostDto nomenclatorPostDto) throws Exception {
+    public ResponseEntity insertData(@PathVariable("ref") String ref, @RequestBody NomBase nomBase) throws Exception {
         utilscontroller.setData(ref);
-        utilscontroller.insertData(nomenclatorPostDto);
+        utilscontroller.insertData(nomBase);
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.creation.success", null, Locale.getDefault())), HttpStatus.OK);
     }
     @PatchMapping("/{ref}/{id}")
-    public ResponseEntity updatetData(@PathVariable("ref") String ref,@PathVariable("id") Long id, @RequestBody NomenclatorPostDto nomenclatorPostDto) throws Exception {
+    public ResponseEntity updatetData(@PathVariable("ref") String ref,@PathVariable("id") Long id, @RequestBody NomBase nomBase) throws Exception {
         utilscontroller.setData(ref);
-        utilscontroller.updateData(id,nomenclatorPostDto);
+        utilscontroller.updateData(id,nomBase);
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.update.success", null, Locale.getDefault())), HttpStatus.OK);
     }
 

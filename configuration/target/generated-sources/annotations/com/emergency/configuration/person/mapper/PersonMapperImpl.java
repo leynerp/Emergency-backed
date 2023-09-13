@@ -1,12 +1,12 @@
 package com.emergency.configuration.person.mapper;
 
+import com.emergency.configuration.nomenclator.domain.entity.NomDocumentTypeEntity;
 import com.emergency.configuration.person.domain.entity.DatAgentEntity;
 import com.emergency.configuration.person.domain.entity.DatDoctorregistryEntity;
 import com.emergency.configuration.person.domain.entity.DatDoctorregistryEntity.DatDoctorregistryEntityBuilder;
 import com.emergency.configuration.person.domain.entity.DatPersonEntity;
 import com.emergency.configuration.person.domain.entity.DatPersonEntity.DatPersonEntityBuilder;
 import com.emergency.configuration.person.domain.entity.DatShipperEntity;
-import com.emergency.configuration.person.domain.entity.NomDocumenttypeEntity;
 import com.emergency.configuration.person.dto.AgentDto;
 import com.emergency.configuration.person.dto.DoctorDto;
 import com.emergency.configuration.person.dto.ShipperDto;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-12T23:42:34+0100",
+    date = "2023-08-19T11:20:52+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component
@@ -33,6 +33,7 @@ public class PersonMapperImpl implements PersonMapper {
 
         datDoctorregistryEntity.personEntityDoctor( doctorDtoToDatPersonEntity( doctorDto ) );
         datDoctorregistryEntity.idDoctor( (long) doctorDto.getId_person() );
+        datDoctorregistryEntity.medicalRegistry( doctorDto.getMedical_registry() );
 
         return datDoctorregistryEntity.build();
     }
@@ -48,12 +49,13 @@ public class PersonMapperImpl implements PersonMapper {
         if ( doctorEntity.getIdDoctor() != null ) {
             doctorDto.setId_person( doctorEntity.getIdDoctor().intValue() );
         }
+        doctorDto.setMedical_registry( doctorEntity.getMedicalRegistry() );
         doctorDto.setName( doctorEntityPersonEntityDoctorName( doctorEntity ) );
         doctorDto.setF_last_name( doctorEntityPersonEntityDoctorFirstLastName( doctorEntity ) );
         doctorDto.setS_last_name( doctorEntityPersonEntityDoctorSecLastName( doctorEntity ) );
         doctorDto.setNo_identification( doctorEntityPersonEntityDoctorNoIdentification( doctorEntity ) );
         doctorDto.setDocument_type( doctorEntityPersonEntityDoctorDocumentTypeName( doctorEntity ) );
-        doctorDto.setId_document_type( doctorEntityPersonEntityDoctorIdDocumentType( doctorEntity ) );
+        doctorDto.setId_document_type( doctorEntityPersonEntityDoctorDocumentTypeId( doctorEntity ) );
 
         return doctorDto;
     }
@@ -89,7 +91,7 @@ public class PersonMapperImpl implements PersonMapper {
         shipperDto.setS_last_name( shipperEntityPersonEntityShipperSecLastName( shipperEntity ) );
         shipperDto.setNo_identification( shipperEntityPersonEntityShipperNoIdentification( shipperEntity ) );
         shipperDto.setDocument_type( shipperEntityPersonEntityShipperDocumentTypeName( shipperEntity ) );
-        shipperDto.setId_document_type( shipperEntityPersonEntityShipperIdDocumentType( shipperEntity ) );
+        shipperDto.setId_document_type( shipperEntityPersonEntityShipperDocumentTypeId( shipperEntity ) );
         shipperDto.setRegistry( shipperEntity.getRegistry() );
 
         return shipperDto;
@@ -131,7 +133,7 @@ public class PersonMapperImpl implements PersonMapper {
             agentDto.setAgent_number( String.valueOf( agentEntity.getAgentNumber() ) );
         }
         agentDto.setDocument_type( agentEntityPersonEntityAgentDocumentTypeName( agentEntity ) );
-        agentDto.setId_document_type( agentEntityPersonEntityAgentIdDocumentType( agentEntity ) );
+        agentDto.setId_document_type( agentEntityPersonEntityAgentDocumentTypeId( agentEntity ) );
 
         return agentDto;
     }
@@ -178,16 +180,17 @@ public class PersonMapperImpl implements PersonMapper {
         return list;
     }
 
-    protected NomDocumenttypeEntity doctorDtoToNomDocumenttypeEntity(DoctorDto doctorDto) {
+    protected NomDocumentTypeEntity doctorDtoToNomDocumentTypeEntity(DoctorDto doctorDto) {
         if ( doctorDto == null ) {
             return null;
         }
 
-        NomDocumenttypeEntity nomDocumenttypeEntity = new NomDocumenttypeEntity();
+        NomDocumentTypeEntity nomDocumentTypeEntity = new NomDocumentTypeEntity();
 
-        nomDocumenttypeEntity.setName( doctorDto.getDocument_type() );
+        nomDocumentTypeEntity.setName( doctorDto.getDocument_type() );
+        nomDocumentTypeEntity.setId( doctorDto.getId_document_type() );
 
-        return nomDocumenttypeEntity;
+        return nomDocumentTypeEntity;
     }
 
     protected DatPersonEntity doctorDtoToDatPersonEntity(DoctorDto doctorDto) {
@@ -197,12 +200,11 @@ public class PersonMapperImpl implements PersonMapper {
 
         DatPersonEntityBuilder datPersonEntity = DatPersonEntity.builder();
 
-        datPersonEntity.documentType( doctorDtoToNomDocumenttypeEntity( doctorDto ) );
+        datPersonEntity.documentType( doctorDtoToNomDocumentTypeEntity( doctorDto ) );
         datPersonEntity.name( doctorDto.getName() );
         datPersonEntity.firstLastName( doctorDto.getF_last_name() );
         datPersonEntity.secLastName( doctorDto.getS_last_name() );
         datPersonEntity.noIdentification( doctorDto.getNo_identification() );
-        datPersonEntity.idDocumentType( doctorDto.getId_document_type() );
 
         return datPersonEntity.build();
     }
@@ -275,7 +277,7 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityDoctor == null ) {
             return null;
         }
-        NomDocumenttypeEntity documentType = personEntityDoctor.getDocumentType();
+        NomDocumentTypeEntity documentType = personEntityDoctor.getDocumentType();
         if ( documentType == null ) {
             return null;
         }
@@ -286,7 +288,7 @@ public class PersonMapperImpl implements PersonMapper {
         return name;
     }
 
-    private Long doctorEntityPersonEntityDoctorIdDocumentType(DatDoctorregistryEntity datDoctorregistryEntity) {
+    private Long doctorEntityPersonEntityDoctorDocumentTypeId(DatDoctorregistryEntity datDoctorregistryEntity) {
         if ( datDoctorregistryEntity == null ) {
             return null;
         }
@@ -294,23 +296,28 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityDoctor == null ) {
             return null;
         }
-        Long idDocumentType = personEntityDoctor.getIdDocumentType();
-        if ( idDocumentType == null ) {
+        NomDocumentTypeEntity documentType = personEntityDoctor.getDocumentType();
+        if ( documentType == null ) {
             return null;
         }
-        return idDocumentType;
+        Long id = documentType.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 
-    protected NomDocumenttypeEntity shipperDtoToNomDocumenttypeEntity(ShipperDto shipperDto) {
+    protected NomDocumentTypeEntity shipperDtoToNomDocumentTypeEntity(ShipperDto shipperDto) {
         if ( shipperDto == null ) {
             return null;
         }
 
-        NomDocumenttypeEntity nomDocumenttypeEntity = new NomDocumenttypeEntity();
+        NomDocumentTypeEntity nomDocumentTypeEntity = new NomDocumentTypeEntity();
 
-        nomDocumenttypeEntity.setName( shipperDto.getDocument_type() );
+        nomDocumentTypeEntity.setName( shipperDto.getDocument_type() );
+        nomDocumentTypeEntity.setId( shipperDto.getId_document_type() );
 
-        return nomDocumenttypeEntity;
+        return nomDocumentTypeEntity;
     }
 
     protected DatPersonEntity shipperDtoToDatPersonEntity(ShipperDto shipperDto) {
@@ -320,12 +327,11 @@ public class PersonMapperImpl implements PersonMapper {
 
         DatPersonEntityBuilder datPersonEntity = DatPersonEntity.builder();
 
-        datPersonEntity.documentType( shipperDtoToNomDocumenttypeEntity( shipperDto ) );
+        datPersonEntity.documentType( shipperDtoToNomDocumentTypeEntity( shipperDto ) );
         datPersonEntity.name( shipperDto.getName() );
         datPersonEntity.firstLastName( shipperDto.getF_last_name() );
         datPersonEntity.secLastName( shipperDto.getS_last_name() );
         datPersonEntity.noIdentification( shipperDto.getNo_identification() );
-        datPersonEntity.idDocumentType( shipperDto.getId_document_type() );
 
         return datPersonEntity.build();
     }
@@ -398,7 +404,7 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityShipper == null ) {
             return null;
         }
-        NomDocumenttypeEntity documentType = personEntityShipper.getDocumentType();
+        NomDocumentTypeEntity documentType = personEntityShipper.getDocumentType();
         if ( documentType == null ) {
             return null;
         }
@@ -409,7 +415,7 @@ public class PersonMapperImpl implements PersonMapper {
         return name;
     }
 
-    private Long shipperEntityPersonEntityShipperIdDocumentType(DatShipperEntity datShipperEntity) {
+    private Long shipperEntityPersonEntityShipperDocumentTypeId(DatShipperEntity datShipperEntity) {
         if ( datShipperEntity == null ) {
             return null;
         }
@@ -417,23 +423,28 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityShipper == null ) {
             return null;
         }
-        Long idDocumentType = personEntityShipper.getIdDocumentType();
-        if ( idDocumentType == null ) {
+        NomDocumentTypeEntity documentType = personEntityShipper.getDocumentType();
+        if ( documentType == null ) {
             return null;
         }
-        return idDocumentType;
+        Long id = documentType.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 
-    protected NomDocumenttypeEntity agentDtoToNomDocumenttypeEntity(AgentDto agentDto) {
+    protected NomDocumentTypeEntity agentDtoToNomDocumentTypeEntity(AgentDto agentDto) {
         if ( agentDto == null ) {
             return null;
         }
 
-        NomDocumenttypeEntity nomDocumenttypeEntity = new NomDocumenttypeEntity();
+        NomDocumentTypeEntity nomDocumentTypeEntity = new NomDocumentTypeEntity();
 
-        nomDocumenttypeEntity.setName( agentDto.getDocument_type() );
+        nomDocumentTypeEntity.setName( agentDto.getDocument_type() );
+        nomDocumentTypeEntity.setId( agentDto.getId_document_type() );
 
-        return nomDocumenttypeEntity;
+        return nomDocumentTypeEntity;
     }
 
     protected DatPersonEntity agentDtoToDatPersonEntity(AgentDto agentDto) {
@@ -443,12 +454,11 @@ public class PersonMapperImpl implements PersonMapper {
 
         DatPersonEntityBuilder datPersonEntity = DatPersonEntity.builder();
 
-        datPersonEntity.documentType( agentDtoToNomDocumenttypeEntity( agentDto ) );
+        datPersonEntity.documentType( agentDtoToNomDocumentTypeEntity( agentDto ) );
         datPersonEntity.name( agentDto.getName() );
         datPersonEntity.firstLastName( agentDto.getF_last_name() );
         datPersonEntity.secLastName( agentDto.getS_last_name() );
         datPersonEntity.noIdentification( agentDto.getNo_identification() );
-        datPersonEntity.idDocumentType( agentDto.getId_document_type() );
 
         return datPersonEntity.build();
     }
@@ -521,7 +531,7 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityAgent == null ) {
             return null;
         }
-        NomDocumenttypeEntity documentType = personEntityAgent.getDocumentType();
+        NomDocumentTypeEntity documentType = personEntityAgent.getDocumentType();
         if ( documentType == null ) {
             return null;
         }
@@ -532,7 +542,7 @@ public class PersonMapperImpl implements PersonMapper {
         return name;
     }
 
-    private Long agentEntityPersonEntityAgentIdDocumentType(DatAgentEntity datAgentEntity) {
+    private Long agentEntityPersonEntityAgentDocumentTypeId(DatAgentEntity datAgentEntity) {
         if ( datAgentEntity == null ) {
             return null;
         }
@@ -540,10 +550,14 @@ public class PersonMapperImpl implements PersonMapper {
         if ( personEntityAgent == null ) {
             return null;
         }
-        Long idDocumentType = personEntityAgent.getIdDocumentType();
-        if ( idDocumentType == null ) {
+        NomDocumentTypeEntity documentType = personEntityAgent.getDocumentType();
+        if ( documentType == null ) {
             return null;
         }
-        return idDocumentType;
+        Long id = documentType.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 }

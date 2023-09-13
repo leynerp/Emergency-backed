@@ -3,8 +3,6 @@ package com.emergency.configuration.nomenclator.controllers;
 
 import com.emergency.common.config.InfoMessage;
 import com.emergency.configuration.nomenclator.domain.entity.NomEmergencycodeEntity;
-import com.emergency.configuration.nomenclator.dto.NomenclatorPostDto;
-import com.emergency.configuration.nomenclator.mapper.NomenclatorMapper;
 import com.emergency.configuration.nomenclator.service.NomEmergencyCodeServiceNom;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +21,20 @@ public class NomEmergencyCodeController {
     @Autowired
     MessageSource messageSource;
 
-    @Autowired
-    NomenclatorMapper nomenclatorMapper;
 
     @PostMapping()
-    public ResponseEntity insertData(@RequestBody NomenclatorPostDto nomenclatorPostDto) throws Exception {
-        emergencyCodeService.insert(nomenclatorPostDto);
+    public ResponseEntity insertData(@RequestBody NomEmergencycodeEntity nomEmergencyCode) throws Exception {
+        emergencyCodeService.insert(nomEmergencyCode);
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.creation.success", null, Locale.getDefault())), HttpStatus.OK);
     }
+    @GetMapping("/{start}/{limit}")
+    public ResponseEntity getAll(@PathVariable("start") Integer start,@PathVariable("limit") Integer limit){
+        return ResponseEntity.ok(emergencyCodeService.findAllData(start, limit));
+    }
     @PatchMapping("/{id}")
-    public ResponseEntity updatetData(@PathVariable("id") Long id, @RequestBody NomenclatorPostDto nomenclatorPostDto) throws Exception {
-        NomEmergencycodeEntity nomEmergencycodeEntity= nomenclatorMapper.nomenclatorDtoToNomEmergencyEntity(nomenclatorPostDto);
-        nomEmergencycodeEntity.setId(id);
-        emergencyCodeService.updateData(nomEmergencycodeEntity,id);
+    public ResponseEntity updatetData(@PathVariable("id") Long id, @RequestBody NomEmergencycodeEntity nomEmergencyCode) throws Exception {
+        nomEmergencyCode.setId(id);
+        emergencyCodeService.updateData(nomEmergencyCode,id);
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.nomenclator.update.success", null, Locale.getDefault())), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")

@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface NomBaseRepository<C extends NomBase,I> extends JpaRepository<C,I> {
+   List<Optional<C>> findByNameIgnoreCaseAndIdIsNot(String name,I id);
    List<Optional<C>> findByNameIgnoreCase(String name);
 }
