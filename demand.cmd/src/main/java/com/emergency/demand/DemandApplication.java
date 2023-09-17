@@ -6,8 +6,11 @@ import com.emergency.demand.commands.EmergencyDemandCommandHandler;
 import com.emergency.demand.commands.UpdateEmergencyDemandCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
+import javax.annotation.PostConstruct;
+
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class DemandApplication {
 
 	private CommandDispatcher commandDispatcher;
@@ -21,7 +24,7 @@ public class DemandApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemandApplication.class, args);
 	}
-
+    @PostConstruct
 	public void initHandlers(){
 		commandDispatcher.registerHandler(CreateEmergencyDemandCommand.class,commandHandler::handle);
 		commandDispatcher.registerHandler(UpdateEmergencyDemandCommand.class,commandHandler::handle);

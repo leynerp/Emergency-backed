@@ -12,17 +12,17 @@ import java.util.Map;
 
 @Service
 public class EmergencyDemandCommandDispatcher implements CommandDispatcher {
-    private final Map<Class<? extends BaseCommand>, List<CommandHandlerMethod>> routes=new HashMap<>();
+    private final Map<Class<? extends BaseCommand>, List<CommandHandlerMethod>> cache=new HashMap<>();
     @Override
     public <T extends BaseCommand> void registerHandler(Class<T> type, CommandHandlerMethod<T> handler) {
-       var handlers=routes.computeIfAbsent(type,c->new LinkedList<>());
+       var handlers=cache.computeIfAbsent(type,c->new LinkedList<>());
        handlers.add(handler);
     }
 
     @Override
     public void send(BaseCommand command) {
-      var handlerInCommand=routes.get(command.getClass());
-      if (!handlerInCommand.isEmpty()){
+      var handlerInCommand=cache.get(command.getClass());
+      if (handlerInCommand==null){
           throw new RuntimeException("The command dont have a handler define");
       }
         handlerInCommand.get(0).handleCommand(command);

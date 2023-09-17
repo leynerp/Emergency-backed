@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 
@@ -20,8 +18,8 @@ import java.util.Locale;
 public class EmergencyDemandController {
     private MessageSource messageSource;
     private EmergencyDemandCommandDispatcher dispatcher;
-
-    public ResponseEntity<InfoMessage> saveCommand(@PathVariable CreateEmergencyDemandCommand command){
+    @PostMapping()
+    public ResponseEntity<InfoMessage> saveCommand(@RequestBody CreateEmergencyDemandCommand command){
         dispatcher.send(command);
         return new ResponseEntity(new InfoMessage(HttpStatus.OK.value(), messageSource.getMessage("api.response.demand.creation.success", null, Locale.getDefault())), HttpStatus.OK);    }
 }
