@@ -1,5 +1,8 @@
 package com.emergency.demand.commands;
 
+import com.emergency.common.commands.CreateEmergencyDemandCommand;
+import com.emergency.common.commands.DeleteEmergencyDemandCommand;
+import com.emergency.common.commands.UpdateEmergencyDemandCommand;
 import com.emergency.demand.service.EmergencyDemandCommandService;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,10 @@ public class EmergencyDemandCommandHandler implements CommandHandler{
 
     @Override
     public void handle(UpdateEmergencyDemandCommand command) {
-
+        emergencyDemandCommandService.update(command);
+    }
+    @Override
+    public void handle(DeleteEmergencyDemandCommand command) {
+        emergencyDemandCommandService.delete(command);
     }
 }

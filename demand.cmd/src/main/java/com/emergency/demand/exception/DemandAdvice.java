@@ -28,6 +28,14 @@ public class DemandAdvice {
 
         return new ResponseEntity<>(getError("api.error.duplicated",getMessageBody("api.response.demand.creation.exception.duplicateRegistry"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DemandNotFoundException.class)
+    public ResponseEntity<ErrorFormat> handleDemandNotFoundException() {
+
+        return new ResponseEntity<>(getError("api.error.notfound",getMessageBody("api.response.demand.update.exception.notFound"), HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+
     private ErrorFormat getError(String message, String error, int status) {
         return new ErrorFormat(status, error, getMessageBody(message));
     }

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: emergency-demand-query
+  config:
+    import: optional:configserver:http://root:root@localhost:8080
+
+
+
+
+
+
+
+
+

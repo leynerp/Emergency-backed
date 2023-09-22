@@ -1,21 +1,23 @@
-package com.emergency.demand.commands;
+package com.emergency.common.commands;
 
 import com.emergency.common.config.DemandState;
-import com.emergency.cqrs.core.comand.BaseCommand;
+import com.emergency.cqrs.core.command.BaseCommand;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
-
 @Data
-public class UpdateEmergencyDemandCommand extends BaseCommand {
-    private Integer idDemand;
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateEmergencyDemandCommand extends BaseCommand {
     private LocalDateTime registryDate;
     private String emergency;
+    private String emergencyCode;
     private String address;
-    private Integer respiratoryRate;
-    private String bloodPressure;
-    private Integer bodyTemperature;
-    private Integer heartRate;
+    private VitalSign vitalSign;
     private String patients ;
     private String doctor ;
     private String agent ;

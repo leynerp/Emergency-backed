@@ -1,8 +1,8 @@
 package com.emergency.demand.commands;
 
-import com.emergency.cqrs.core.comand.BaseCommand;
-import com.emergency.cqrs.core.comand.CommandDispatcher;
-import com.emergency.cqrs.core.comand.CommandHandlerMethod;
+import com.emergency.cqrs.core.command.BaseCommand;
+import com.emergency.cqrs.core.command.CommandDispatcher;
+import com.emergency.cqrs.core.command.CommandHandlerMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

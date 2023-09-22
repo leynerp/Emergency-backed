@@ -1,9 +1,10 @@
 package com.emergency.demand;
 
-import com.emergency.cqrs.core.comand.CommandDispatcher;
-import com.emergency.demand.commands.CreateEmergencyDemandCommand;
+import com.emergency.cqrs.core.command.CommandDispatcher;
+import com.emergency.common.commands.CreateEmergencyDemandCommand;
+import com.emergency.common.commands.DeleteEmergencyDemandCommand;
 import com.emergency.demand.commands.EmergencyDemandCommandHandler;
-import com.emergency.demand.commands.UpdateEmergencyDemandCommand;
+import com.emergency.common.commands.UpdateEmergencyDemandCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -28,6 +29,7 @@ public class DemandApplication {
 	public void initHandlers(){
 		commandDispatcher.registerHandler(CreateEmergencyDemandCommand.class,commandHandler::handle);
 		commandDispatcher.registerHandler(UpdateEmergencyDemandCommand.class,commandHandler::handle);
+		commandDispatcher.registerHandler(DeleteEmergencyDemandCommand.class,commandHandler::handle);
 	}
 
 }
